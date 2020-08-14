@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const Display = (props) => {
+const StatisticLine = (props) => {
   const { text, value, unit } = props;
 
   return (
@@ -12,4 +12,4 @@ const Display = (props) => {
   );
 };
 
-export default Display;
+export default StatisticLine;

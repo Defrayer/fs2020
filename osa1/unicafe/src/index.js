@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import Button from './components/Button';
 import Heading from './components/Heading';
 import Statistics from './components/Statistics';
-//import Display from './components/Display';
 
 /**
  * @author Juho Kettunen

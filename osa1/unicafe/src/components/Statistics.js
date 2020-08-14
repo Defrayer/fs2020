@@ -1,7 +1,7 @@
 /** @format */
 
 import React from 'react';
-import Display from './Display';
+import StatisticLine from './StatisticLine';
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
@@ -20,11 +20,15 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <Display text="Good" value={good} />
-      <Display text="Neutral" value={neutral} />
-      <Display text="Bad" value={bad} />
-      <Display text="Average" value={average(good, neutral, bad)} />
-      <Display text="Positive" value={positive(good, neutral, bad)} unit="%" />
+      <StatisticLine text="Good" value={good} />
+      <StatisticLine text="Neutral" value={neutral} />
+      <StatisticLine text="Bad" value={bad} />
+      <StatisticLine text="Average" value={average(good, neutral, bad)} />
+      <StatisticLine
+        text="Positive"
+        value={positive(good, neutral, bad)}
+        unit="%"
+      />
     </div>
   );
 };
