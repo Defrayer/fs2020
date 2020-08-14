@@ -1,10 +1,10 @@
 /** @format */
 
 import React from 'react';
-import StatisticLine from './StatisticLine';
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
+  const all = good + neutral + bad;
 
   // Palautteen keskiarvo
   const average = (pos, neut, neg) => {
@@ -19,17 +19,34 @@ const Statistics = (props) => {
   };
 
   return (
-    <div>
-      <StatisticLine text="Good" value={good} />
-      <StatisticLine text="Neutral" value={neutral} />
-      <StatisticLine text="Bad" value={bad} />
-      <StatisticLine text="Average" value={average(good, neutral, bad)} />
-      <StatisticLine
-        text="Positive"
-        value={positive(good, neutral, bad)}
-        unit="%"
-      />
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>Good</td>
+          <td>{good}</td>
+        </tr>
+        <tr>
+          <td>Neutral</td>
+          <td>{neutral}</td>
+        </tr>
+        <tr>
+          <td>Bad</td>
+          <td>{bad}</td>
+        </tr>
+        <tr>
+          <td>All</td>
+          <td>{all}</td>
+        </tr>
+        <tr>
+          <td>Average</td>
+          <td>{average(good, neutral, bad)}</td>
+        </tr>
+        <tr>
+          <td>Positive</td>
+          <td>{positive(good, neutral, bad)} %</td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
