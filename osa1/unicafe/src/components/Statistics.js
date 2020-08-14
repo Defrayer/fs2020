@@ -1,12 +1,10 @@
 /** @format */
 
 import React from 'react';
-import Heading from './Heading';
 import Display from './Display';
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
-  const tally = good + neutral + bad;
 
   // Palautteen keskiarvo
   const average = (pos, neut, neg) => {
