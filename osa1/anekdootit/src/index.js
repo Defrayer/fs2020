@@ -33,6 +33,18 @@ const App = (props) => {
     setVotes(newVotes);
   };
 
+  const getMostVotedIx = () => {
+    if (votes.length === 0) return undefined;
+    let mostVotedIx = 0;
+    for (let i = 0; i < votes.length; i++) {
+      if (votes[i] > votes[mostVotedIx]) {
+        mostVotedIx = i;
+      }
+    }
+    return mostVotedIx;
+  };
+
+  const mostVotedIx = getMostVotedIx();
   return (
     <div>
       <h1>Anecdote of the day</h1>
@@ -41,6 +53,18 @@ const App = (props) => {
       <p>
         <button onClick={handleVote}>Vote</button>
         <button onClick={handleNext}>Next anecdote</button>
+      </p>
+      <h1>Anecdote with most votes</h1>
+      <p>
+        {votes.every((value) => value === 0)
+          ? 'No votes have been cast.'
+          : anecdotes[mostVotedIx] + ' (' + votes[mostVotedIx] + ' votes)'}
+      </p>
+      <p>
+        All anecdotes sourced from{' '}
+        <a href="https://www.comp.nus.edu.sg/~damithch/pages/SE-quotes.htm">
+          https://www.comp.nus.edu.sg/~damithch/pages/SE-quotes.htm
+        </a>
       </p>
     </div>
   );
