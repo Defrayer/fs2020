@@ -6,6 +6,7 @@ import Display from './Display';
 
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
+  const tally = good + neutral + bad;
 
   // Palautteen keskiarvo
   const average = (pos, neut, neg) => {
@@ -21,7 +22,6 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <Heading text="Statistics" />
       <Display text="Good" value={good} />
       <Display text="Neutral" value={neutral} />
       <Display text="Bad" value={bad} />
