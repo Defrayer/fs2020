@@ -3,9 +3,9 @@
 import React from 'react';
 
 const Display = (props) => {
-  const { text, value } = props;
+  const { text, value, unit } = props;
 
-  return <p>{`${text}: ${value}`}</p>;
+  return <p>{`${text}: ${value} ${unit || ''}`}</p>;
 };
 
 export default Display;
