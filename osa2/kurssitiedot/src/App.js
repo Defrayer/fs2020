@@ -19,7 +19,7 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
       },
-      { name: 'Imaginary parts', exercises: -3 },
+      { name: 'JavaScript: The Imaginary Parts', exercises: -3 },
     ],
   };
 
