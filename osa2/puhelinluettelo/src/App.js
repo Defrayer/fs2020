@@ -1,6 +1,9 @@
 /** @format */
 
 import React, { useState } from 'react';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 
 /**
  * @author Juho Kettunen jupekett
@@ -17,15 +20,25 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filterWith, setFilterWith] = useState('');
 
-  // Case insensitive filtering
+  // Note: case insensitive filtering
   const personsToShow = filterWith
     ? persons.filter((person) =>
         RegExp('.*' + filterWith + '.*', 'i').test(person.name)
       )
     : persons;
 
-  // Adds a person to the phonebook. Doesn't allow blank fields or
-  // a duplicate name.
+  const handleFilterChange = (event) => {
+    setFilterWith(event.target.value);
+  };
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value);
+  };
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!newName.trim()) {
@@ -55,41 +68,17 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <label htmlFor="filterField">Filter shown with </label>
-      <input
-        id="filterField"
-        type="text"
-        value={filterWith}
-        onChange={(e) => setFilterWith(e.target.value)}
-      ></input>
+      <Filter filterWith={filterWith} handleChange={handleFilterChange} />
       <h2>Add a new person</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="nameField">Name: </label>
-          <input
-            id="nameField"
-            type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="numberField">Number: </label>
-          <input
-            id="numberField"
-            type="tel"
-            value={newNumber}
-            onChange={(e) => setNewNumber(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Add</button>
-      </form>
+      <PersonForm
+        name={newName}
+        number={newNumber}
+        handleSubmit={handleSubmit}
+        handleNameChange={handleNameChange}
+        handleNumberChange={handleNumberChange}
+      />
       <h2>Numbers</h2>
-      {personsToShow.map((person) => (
-        <p key={person.name}>{person.name + ' ' + person.number}</p>
-      ))}
+      <Persons persons={personsToShow} />
     </div>
   );
 };
