@@ -9,10 +9,19 @@ const App = () => {
   const [persons, setPersons] = useState([{ name: 'Erkki Esimerkki' }]);
   const [newName, setNewName] = useState('');
 
+  // Lisää henkilön puhelinluetteloon. Ei hyväksy duplikaattinimiä.
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPersons(persons.concat({ name: newName }));
-    setNewName('');
+    const name = newName.trim().toLowerCase();
+    const nameIsInPhonebook = persons.some(
+      (person) => person.name.trim().toLowerCase() === name
+    );
+    if (nameIsInPhonebook) {
+      alert(`${newName} is already added to the phonebook.`);
+    } else {
+      setPersons(persons.concat({ name: newName.trim() }));
+      setNewName('');
+    }
   };
 
   const handleChange = (event) => {
