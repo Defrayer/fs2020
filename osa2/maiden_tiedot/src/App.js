@@ -12,6 +12,7 @@ import CountryInfo from './components/CountryInfo';
 function App() {
   const [countries, setCountries] = useState([]);
   const [filterWith, setFilterWith] = useState('');
+  const [countriesToShow, setCountriesToShow] = useState([]);
 
   useEffect(() => {
     axios
@@ -21,16 +22,41 @@ function App() {
       .then((response) => setCountries(response.data));
   }, []);
 
-  const handleFilterChange = (event) => {
-    const value = event.target.value;
-    setFilterWith(value);
+  const escapeParens = (str) => {
+    const strParen1 = str.replace(/\(/g, '\\(');
+    const strClean = strParen1.replace(/\)/g, '\\)');
+    return strClean;
   };
 
-  const countriesToShow = filterWith
-    ? countries.filter((country) =>
-        RegExp('.*' + filterWith + '.*', 'i').test(country.name)
-      )
-    : countries;
+  const findCountries = (name, countries) => {
+    const nameClean = escapeParens(name);
+    return name.trim()
+      ? countries.filter((country) =>
+          RegExp(`.*${nameClean}.*`, 'i').test(country.name)
+        )
+      : countries;
+  };
+
+  const findExactCountry = (name, countries) => {
+    const nameClean = escapeParens(name);
+    return name.trim()
+      ? countries.filter((country) =>
+          RegExp(`^${nameClean}$`, 'i').test(country.name)
+        )
+      : countries;
+  };
+
+  const handleFilterChange = (event) => {
+    const filter = event.target.value;
+    setFilterWith(filter);
+    const countriesToShow = findCountries(filter, countries);
+    setCountriesToShow(countriesToShow);
+  };
+
+  const handleClick = (event, name) => {
+    const country = findExactCountry(name, countries);
+    setCountriesToShow(country);
+  };
 
   const giveElementToShow = () => {
     if (10 < countriesToShow.length) {
@@ -38,7 +64,9 @@ function App() {
     } else if (countriesToShow.length === 1) {
       return <CountryInfo country={countriesToShow[0]} />;
     } else {
-      return <CountryList countries={countriesToShow} />;
+      return (
+        <CountryList countries={countriesToShow} handleClick={handleClick} />
+      );
     }
   };
 
