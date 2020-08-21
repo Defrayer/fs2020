@@ -1,6 +1,7 @@
 /** @format */
 
 import React from 'react';
+import Weather from './Weather';
 
 const CountryInfo = (props) => {
   const country = props.country;
@@ -20,6 +21,8 @@ const CountryInfo = (props) => {
         height="120"
         alt={'Flag of ' + country.name}
       ></img>
+      <h3>Weather in {country.capital}</h3>
+      <Weather city={country.capital} />
     </div>
   );
 };
